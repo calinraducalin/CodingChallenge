@@ -9,13 +9,23 @@
 /* Begin PBXBuildFile section */
 		2888D367278A14E600BB141E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D366278A14E600BB141E /* AppDelegate.swift */; };
 		2888D369278A14E600BB141E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D368278A14E600BB141E /* SceneDelegate.swift */; };
-		2888D36B278A14E600BB141E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D36A278A14E600BB141E /* ViewController.swift */; };
 		2888D36E278A14E600BB141E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2888D36C278A14E600BB141E /* Main.storyboard */; };
 		2888D370278A14E700BB141E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2888D36F278A14E700BB141E /* Assets.xcassets */; };
 		2888D373278A14E700BB141E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2888D371278A14E700BB141E /* LaunchScreen.storyboard */; };
 		2888D37E278A14E800BB141E /* AdevintaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D37D278A14E800BB141E /* AdevintaTests.swift */; };
 		2888D388278A14E800BB141E /* AdevintaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D387278A14E800BB141E /* AdevintaUITests.swift */; };
 		2888D38A278A14E800BB141E /* AdevintaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D389278A14E800BB141E /* AdevintaUITestsLaunchTests.swift */; };
+		2888D398278A151C00BB141E /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D397278A151C00BB141E /* NetworkController.swift */; };
+		2888D39A278A158300BB141E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D399278A158300BB141E /* Endpoint.swift */; };
+		2888D39C278A16E500BB141E /* VehicleDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D39B278A16E500BB141E /* VehicleDetailsController.swift */; };
+		2888D39E278A198A00BB141E /* VehicleDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D39D278A198A00BB141E /* VehicleDetails.swift */; };
+		2888D3A1278A224400BB141E /* VehicleImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3A0278A224400BB141E /* VehicleImagesViewController.swift */; };
+		2888D3A6278A287A00BB141E /* VehicleImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3A5278A287A00BB141E /* VehicleImagesViewModel.swift */; };
+		2888D3AC278A43C700BB141E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2888D3AB278A43C700BB141E /* Kingfisher */; };
+		2888D3B1278A446600BB141E /* VehicleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B0278A446600BB141E /* VehicleImageCell.swift */; };
+		2888D3B5278A47BA00BB141E /* UICollectionViewCell+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B4278A47BA00BB141E /* UICollectionViewCell+Helpers.swift */; };
+		2888D3B7278A47DA00BB141E /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */; };
+		2888D3B9278A482E00BB141E /* VehicleImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B8278A482E00BB141E /* VehicleImageItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +49,6 @@
 		2888D363278A14E600BB141E /* Adevinta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Adevinta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2888D366278A14E600BB141E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2888D368278A14E600BB141E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2888D36A278A14E600BB141E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2888D36D278A14E600BB141E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2888D36F278A14E700BB141E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2888D372278A14E700BB141E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +58,16 @@
 		2888D383278A14E800BB141E /* AdevintaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdevintaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2888D387278A14E800BB141E /* AdevintaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdevintaUITests.swift; sourceTree = "<group>"; };
 		2888D389278A14E800BB141E /* AdevintaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdevintaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2888D397278A151C00BB141E /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		2888D399278A158300BB141E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		2888D39B278A16E500BB141E /* VehicleDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsController.swift; sourceTree = "<group>"; };
+		2888D39D278A198A00BB141E /* VehicleDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetails.swift; sourceTree = "<group>"; };
+		2888D3A0278A224400BB141E /* VehicleImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleImagesViewController.swift; sourceTree = "<group>"; };
+		2888D3A5278A287A00BB141E /* VehicleImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleImagesViewModel.swift; sourceTree = "<group>"; };
+		2888D3B0278A446600BB141E /* VehicleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleImageCell.swift; sourceTree = "<group>"; };
+		2888D3B4278A47BA00BB141E /* UICollectionViewCell+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Helpers.swift"; sourceTree = "<group>"; };
+		2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
+		2888D3B8278A482E00BB141E /* VehicleImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleImageItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2888D3AC278A43C700BB141E /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +121,9 @@
 			children = (
 				2888D366278A14E600BB141E /* AppDelegate.swift */,
 				2888D368278A14E600BB141E /* SceneDelegate.swift */,
-				2888D36A278A14E600BB141E /* ViewController.swift */,
+				2888D39F278A212E00BB141E /* Screens */,
+				2888D396278A14F700BB141E /* Networking */,
+				2888D3B2278A478300BB141E /* Extensions */,
 				2888D36C278A14E600BB141E /* Main.storyboard */,
 				2888D36F278A14E700BB141E /* Assets.xcassets */,
 				2888D371278A14E700BB141E /* LaunchScreen.storyboard */,
@@ -127,6 +149,85 @@
 			path = AdevintaUITests;
 			sourceTree = "<group>";
 		};
+		2888D396278A14F700BB141E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3A8278A32D700BB141E /* API */,
+				2888D3A7278A32B600BB141E /* Utils */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		2888D39F278A212E00BB141E /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3A2278A274C00BB141E /* VehicleImages */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		2888D3A2278A274C00BB141E /* VehicleImages */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3A0278A224400BB141E /* VehicleImagesViewController.swift */,
+				2888D3A5278A287A00BB141E /* VehicleImagesViewModel.swift */,
+				2888D3AF278A442400BB141E /* Utils */,
+			);
+			path = VehicleImages;
+			sourceTree = "<group>";
+		};
+		2888D3A7278A32B600BB141E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2888D397278A151C00BB141E /* NetworkController.swift */,
+				2888D399278A158300BB141E /* Endpoint.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2888D3A8278A32D700BB141E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3A9278A32DF00BB141E /* VehicleDetails */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		2888D3A9278A32DF00BB141E /* VehicleDetails */ = {
+			isa = PBXGroup;
+			children = (
+				2888D39B278A16E500BB141E /* VehicleDetailsController.swift */,
+				2888D39D278A198A00BB141E /* VehicleDetails.swift */,
+			);
+			path = VehicleDetails;
+			sourceTree = "<group>";
+		};
+		2888D3AF278A442400BB141E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3B0278A446600BB141E /* VehicleImageCell.swift */,
+				2888D3B8278A482E00BB141E /* VehicleImageItem.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2888D3B2278A478300BB141E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3B3278A479800BB141E /* UIKit */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2888D3B3278A479800BB141E /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				2888D3B4278A47BA00BB141E /* UICollectionViewCell+Helpers.swift */,
+				2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +244,9 @@
 			dependencies = (
 			);
 			name = Adevinta;
+			packageProductDependencies = (
+				2888D3AB278A43C700BB141E /* Kingfisher */,
+			);
 			productName = Adevinta;
 			productReference = 2888D363278A14E600BB141E /* Adevinta.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +319,9 @@
 				Base,
 			);
 			mainGroup = 2888D35A278A14E600BB141E;
+			packageReferences = (
+				2888D3AA278A43C600BB141E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 2888D364278A14E600BB141E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,9 +365,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2888D36B278A14E600BB141E /* ViewController.swift in Sources */,
+				2888D398278A151C00BB141E /* NetworkController.swift in Sources */,
+				2888D3A6278A287A00BB141E /* VehicleImagesViewModel.swift in Sources */,
 				2888D367278A14E600BB141E /* AppDelegate.swift in Sources */,
+				2888D3A1278A224400BB141E /* VehicleImagesViewController.swift in Sources */,
+				2888D3B5278A47BA00BB141E /* UICollectionViewCell+Helpers.swift in Sources */,
+				2888D39E278A198A00BB141E /* VehicleDetails.swift in Sources */,
+				2888D3B7278A47DA00BB141E /* UIView+Helpers.swift in Sources */,
 				2888D369278A14E600BB141E /* SceneDelegate.swift in Sources */,
+				2888D39A278A158300BB141E /* Endpoint.swift in Sources */,
+				2888D3B1278A446600BB141E /* VehicleImageCell.swift in Sources */,
+				2888D39C278A16E500BB141E /* VehicleDetailsController.swift in Sources */,
+				2888D3B9278A482E00BB141E /* VehicleImageItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -604,6 +720,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2888D3AA278A43C600BB141E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2888D3AB278A43C700BB141E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2888D3AA278A43C600BB141E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2888D35B278A14E600BB141E /* Project object */;
 }
