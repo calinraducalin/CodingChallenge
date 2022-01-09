@@ -5,15 +5,14 @@
 //  Created by Calin Radu Calin on 08.01.2022.
 //
 
-import Foundation
 import UIKit
 import Combine
 
 final class VehicleImagesViewModel {
 
-    @Published var isLoading: Bool = false
     @Published var searchText: String = "333298695"
-    @Published var snapshot = NSDiffableDataSourceSnapshot<Int, VehicleImageItem>()
+    @Published private (set) var isLoading: Bool = false
+    @Published private (set) var snapshot = NSDiffableDataSourceSnapshot<Int, VehicleImageItem>()
     private var vehicleDetailsCancellable: AnyCancellable?
     private var subscriptions = Set<AnyCancellable>()
     private let presenter: Presenting
@@ -34,7 +33,6 @@ final class VehicleImagesViewModel {
         $searchText.sink { [weak self] searchText in
             self?.getVehicleDetails(vehicleId: searchText)
         }.store(in: &subscriptions)
-
     }
 
     func getVehicleDetails(vehicleId: String) {
@@ -90,6 +88,7 @@ final class VehicleImagesViewModel {
         )
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
+
         return layout
     }
 

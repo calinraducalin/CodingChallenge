@@ -23,9 +23,8 @@ final class VehicleImagesViewController: UIViewController {
         return collectionView
             .dequeueConfiguredReusableCell(using: self.vehicleCellRegistration, for: indexPath, item: item)
     }
-    private var searchController = UISearchController()
-    private var vehicleDetailsCancellable: AnyCancellable?
-    private var loadingViewController: LoadingViewController?
+    private let loadingActivityIndicator = UIActivityIndicatorView()
+    private let searchController = UISearchController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +69,10 @@ extension VehicleImagesViewController: UISearchBarDelegate {
 private extension VehicleImagesViewController {
 
     func setupView() {
+        setupInfoButton()
         setupCollectionView()
         setupSearchController()
-        setupInfoButton()
+        setupLoadingActivityIndicatorView()
     }
 
     func setupCollectionView() {
@@ -94,6 +94,12 @@ private extension VehicleImagesViewController {
         navigationItem.rightBarButtonItem = .init(customView: UIButton(type: .infoLight, primaryAction: infoAction))
     }
 
+    func setupLoadingActivityIndicatorView() {
+        loadingActivityIndicator.hidesWhenStopped = true
+        view.addSubview(loadingActivityIndicator)
+        loadingActivityIndicator.activateCenterConstraints(relativeTo: collectionView)
+    }
+
 }
 
 // MARK: - Subscriptions Setup
@@ -101,14 +107,10 @@ private extension VehicleImagesViewController {
 
     func setupSubscriptions() {
         viewModel.$isLoading.sink { [weak self] isLoading in
-            guard let self = self else { return }
-            if !isLoading {
-                self.loadingViewController?.removeAsChild()
-                self.loadingViewController = nil
-            } else if self.loadingViewController == nil {
-                let loadingViewController = LoadingViewController()
-                self.addChildViewController(loadingViewController)
-                self.loadingViewController = loadingViewController
+            if isLoading {
+                self?.loadingActivityIndicator.startAnimating()
+            } else {
+                self?.loadingActivityIndicator.stopAnimating()
             }
         }.store(in: &subscriptions)
 

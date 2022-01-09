@@ -11,5 +11,4 @@ struct ImagePageViewModel {
 
     let initialUri: String
     let imageUris: [String]
-
 }

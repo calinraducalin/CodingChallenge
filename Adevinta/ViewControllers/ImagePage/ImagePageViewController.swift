@@ -11,8 +11,9 @@ import SwiftUI
 final class ImagePageViewController: UIViewController {
 
     let viewModel: ImagePageViewModel
-    private  lazy var contentViewController = UIHostingController(rootView: ImagePageView(imageUris: viewModel.imageUris, selectedUri: viewModel.initialUri))
-
+    private lazy var contentViewController = UIHostingController(
+        rootView: ImagePageView(imageUris: viewModel.imageUris, selectedUri: viewModel.initialUri)
+    )
 
     init(viewModel: ImagePageViewModel) {
         self.viewModel = viewModel
@@ -38,7 +39,10 @@ private extension ImagePageViewController {
     }
 
     func setupContentView() {
-        addChildViewController(contentViewController)
+        addChild(contentViewController)
+        view.addSubview(contentViewController.view)
+        contentViewController.view.activateEdgeConstraints()
+        contentViewController.didMove(toParent: self)
     }
 
     func setupDismissButton() {
