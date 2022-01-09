@@ -16,6 +16,7 @@ final class VehicleImagesViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         viewModel.setupDataSource(for: collectionView)
+        viewModel.searchDefaultVehicle()
     }
 
 }
@@ -71,8 +72,8 @@ private extension VehicleImagesViewController {
     }
 
     func setupLoadingActivityIndicatorView() {
-        view.addSubview(viewModel.loadingActivityIndicator)
-        viewModel.loadingActivityIndicator.activateCenterConstraints(relativeTo: collectionView)
+        view.addSubview(viewModel.activityIndicator)
+        viewModel.activityIndicator.activateCenterConstraints(relativeTo: collectionView)
     }
 
 }
