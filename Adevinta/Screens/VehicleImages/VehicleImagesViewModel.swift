@@ -28,7 +28,7 @@ final class VehicleImagesViewModel {
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(0.5)
+            heightDimension: .fractionalWidth(0.36)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,

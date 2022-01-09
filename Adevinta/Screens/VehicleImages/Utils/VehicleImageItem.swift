@@ -10,5 +10,5 @@ import Foundation
 struct VehicleImageItem: Hashable {
     let uri: String
 
-    var url: URL? { URL(string: "https://\(uri)_2.jpg") }
+    var url: URL? { ImageUrlMaker(uri: uri).thumbnailUrl }
 }

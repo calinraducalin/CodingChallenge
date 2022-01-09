@@ -37,11 +37,13 @@ final class VehicleImageCell: UICollectionViewCell {
 private extension VehicleImageCell {
 
     func setupImageView() {
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.tintColor = .systemGray4
+        imageView.contentMode = .scaleAspectFill
+
         contentView.addSubview(imageView)
         imageView.activateEdgeConstraints()
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
     }
 
 }
