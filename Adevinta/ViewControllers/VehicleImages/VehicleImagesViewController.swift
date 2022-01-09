@@ -10,8 +10,8 @@ import Combine
 
 final class VehicleImagesViewController: UIViewController {
 
-    private let viewModel = VehicleImagesViewModel()
     private var subscriptions = Set<AnyCancellable>()
+    private lazy var viewModel = VehicleImagesViewModel(presenter: Presenter(originViewController: self))
     private lazy var collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: viewModel.makeLayout())
     private let vehicleCellRegistration = UICollectionView.CellRegistration<VehicleImageCell, VehicleImageItem> { (cell, _, item) in
         cell.update(with: item)
@@ -23,35 +23,14 @@ final class VehicleImagesViewController: UIViewController {
         return collectionView
             .dequeueConfiguredReusableCell(using: self.vehicleCellRegistration, for: indexPath, item: item)
     }
-    private var loadingViewController: LoadingViewController?
-    private let searchController = UISearchController()
+    private var searchController = UISearchController()
     private var vehicleDetailsCancellable: AnyCancellable?
+    private var loadingViewController: LoadingViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setupSubscriptions()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let searchText = searchController.searchBar.text {
-            getCurrentVehicleDetails(for: searchText)
-        }
-    }
-
-    func showPageImageViewController(selectedUri: String) {
-        let imageUris = dataSource.snapshot().itemIdentifiers.map { $0.uri }
-        let viewModel = ImagePageViewModel(initialUri: selectedUri, imageUris: imageUris)
-        let viewController = ImagePageViewController(viewModel: viewModel)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        present(navigationController, animated: true)
-    }
-
-    func showAlert(title: String?, message: String?) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(.init(title: "OK", style: .default))
-        present(alertController, animated: true)
     }
 
 }
@@ -61,7 +40,7 @@ extension VehicleImagesViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedUri = dataSource.itemIdentifier(for: indexPath)?.uri else { return }
-        showPageImageViewController(selectedUri: selectedUri)
+        viewModel.showPageImageViewController(selectedUri: selectedUri)
     }
 
 }
@@ -71,21 +50,18 @@ extension VehicleImagesViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
-        getCurrentVehicleDetails(for: searchText)
+        viewModel.searchText = searchText
         searchController.isActive = false
-        searchController.searchBar.text = searchText
+        DispatchQueue.main.async {
+            self.searchController.searchBar.text = searchText
+        }
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
         DispatchQueue.main.async {
             self.searchController.searchBar.text = searchText
         }
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard searchText.isEmpty else { return }
-        showImages(for: [])
     }
 
 }
@@ -96,6 +72,7 @@ private extension VehicleImagesViewController {
     func setupView() {
         setupCollectionView()
         setupSearchController()
+        setupInfoButton()
     }
 
     func setupCollectionView() {
@@ -107,8 +84,14 @@ private extension VehicleImagesViewController {
 
     func setupSearchController() {
         navigationItem.searchController = searchController
-        searchController.searchBar.text = "333298695"
         searchController.searchBar.delegate = self
+    }
+
+    func setupInfoButton() {
+        let infoAction = UIAction { [weak self] _ in
+            self?.viewModel.showAlert(title: "Project Info", message: "Project Message")
+        }
+        navigationItem.rightBarButtonItem = .init(customView: UIButton(type: .infoLight, primaryAction: infoAction))
     }
 
 }
@@ -119,48 +102,23 @@ private extension VehicleImagesViewController {
     func setupSubscriptions() {
         viewModel.$isLoading.sink { [weak self] isLoading in
             guard let self = self else { return }
-            if isLoading {
-                self.showImages(for: [])
+            if !isLoading {
+                self.loadingViewController?.removeAsChild()
+                self.loadingViewController = nil
+            } else if self.loadingViewController == nil {
                 let loadingViewController = LoadingViewController()
                 self.addChildViewController(loadingViewController)
                 self.loadingViewController = loadingViewController
-            } else {
-                self.loadingViewController?.removeAsChild()
-                self.loadingViewController = nil
             }
         }.store(in: &subscriptions)
 
-    }
+        viewModel.$snapshot.sink { [weak self] snapshot in
+            self?.dataSource.apply(snapshot)
+        }.store(in: &subscriptions)
 
-    func getCurrentVehicleDetails(for vehicleId: String) {
-
-        viewModel.isLoading = true
-        vehicleDetailsCancellable?.cancel()
-        vehicleDetailsCancellable = viewModel.vehicleDetailsController.getVehicleDetails(id: vehicleId)
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                guard let self = self else { return }
-                self.viewModel.isLoading = false
-                switch completion {
-                case let .failure(error):
-                    self.showAlert(title: "Ooups", message: error.localizedDescription)
-                case .finished: break
-                }
-            }) { [weak self] vehicleDetails in
-                guard let self = self else { return }
-                let uris = vehicleDetails.images?.compactMap({ $0.uri }) ?? []
-                self.showImages(for: uris)
-                if uris.isEmpty {
-                    self.showAlert(title: "Ooups", message: "No images found")
-                }
-            }
-
-        vehicleDetailsCancellable?.store(in: &subscriptions)
-    }
-
-    func showImages(for uris: [String]) {
-        let snapshot = self.viewModel.makeSnapshot(from: uris)
-        dataSource.apply(snapshot)
+        viewModel.$searchText.sink { [weak self] searchText in
+            self?.searchController.searchBar.text = searchText
+        }.store(in: &subscriptions)
     }
 
 }

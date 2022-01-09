@@ -16,14 +16,14 @@ extension UIViewController {
         childController.didMove(toParent: self)
 
         childController.view.alpha = 0
-        UIView.animate(withDuration: 0.3, delay: .zero, options: .transitionCrossDissolve) {
+        UIView.animate(withDuration: 0.25, delay: .zero, options: .transitionCrossDissolve) {
             childController.view.alpha = 1
         }
     }
 
     func removeAsChild() {
         view.alpha = 1
-        UIView.animate(withDuration: 0.3, delay: .zero, options: .transitionCrossDissolve) {
+        UIView.animate(withDuration: 0.25, delay: .zero, options: .transitionCrossDissolve) {
             self.view.alpha = 0
         } completion: { _ in
             self.willMove(toParent: nil)

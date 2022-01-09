@@ -30,13 +30,6 @@ final class ImagePageViewController: UIViewController {
     
 }
 
-struct ImagePageViewModel {
-
-    let initialUri: String
-    let imageUris: [String]
-
-}
-
 private extension ImagePageViewController {
 
     func setupView() {
@@ -45,9 +38,7 @@ private extension ImagePageViewController {
     }
 
     func setupContentView() {
-        addChild(contentViewController)
-        view.addSubview(contentViewController.view)
-        contentViewController.view.activateEdgeConstraints()
+        addChildViewController(contentViewController)
     }
 
     func setupDismissButton() {
