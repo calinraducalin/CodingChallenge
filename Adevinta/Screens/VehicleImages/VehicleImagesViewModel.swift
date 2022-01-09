@@ -12,9 +12,6 @@ final class VehicleImagesViewModel {
 
     @Published var isLoading: Bool = false
     let vehicleDetailsController: VehicleDetailsControllerProtocol
-    let vehicleCellRegistration = UICollectionView.CellRegistration<VehicleImageCell, VehicleImageItem> { (cell, _, item) in
-        cell.update(with: item)
-    }
 
     init(vehicleDetailsController: VehicleDetailsControllerProtocol = VehicleDetailsController()) {
         self.vehicleDetailsController = vehicleDetailsController

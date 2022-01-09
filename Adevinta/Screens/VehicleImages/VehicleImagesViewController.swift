@@ -13,14 +13,19 @@ final class VehicleImagesViewController: UIViewController {
     private let viewModel = VehicleImagesViewModel()
     private var subscriptions = Set<AnyCancellable>()
     private lazy var collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: viewModel.makeLayout())
+    private let vehicleCellRegistration = UICollectionView.CellRegistration<VehicleImageCell, VehicleImageItem> { (cell, _, item) in
+        cell.update(with: item)
+    }
     private lazy var dataSource = UICollectionViewDiffableDataSource<Int, VehicleImageItem>(
         collectionView: collectionView
     ) { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
         guard let self = self else { return nil }
         return collectionView
-            .dequeueConfiguredReusableCell(using: self.viewModel.vehicleCellRegistration, for: indexPath, item: item)
+            .dequeueConfiguredReusableCell(using: self.vehicleCellRegistration, for: indexPath, item: item)
     }
     private var loadingViewController: LoadingViewController?
+    private let searchController = UISearchController()
+    private var vehicleDetailsCancellable: AnyCancellable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +35,9 @@ final class VehicleImagesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getCurrentVehicleDetails()
+        if let searchText = searchController.searchBar.text {
+            getCurrentVehicleDetails(for: searchText)
+        }
     }
 
     func showPageImageViewController(selectedUri: String) {
@@ -47,8 +54,6 @@ final class VehicleImagesViewController: UIViewController {
         present(alertController, animated: true)
     }
 
-
-
 }
 
 // MARK: - UICollectionViewDelegate
@@ -61,11 +66,36 @@ extension VehicleImagesViewController: UICollectionViewDelegate {
 
 }
 
+// MARK: - UISearchBarDelegate
+extension VehicleImagesViewController: UISearchBarDelegate {
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        getCurrentVehicleDetails(for: searchText)
+        searchController.isActive = false
+        searchController.searchBar.text = searchText
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        DispatchQueue.main.async {
+            self.searchController.searchBar.text = searchText
+        }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText.isEmpty else { return }
+        showImages(for: [])
+    }
+
+}
+
 // MARK: - View Setup
 private extension VehicleImagesViewController {
 
     func setupView() {
         setupCollectionView()
+        setupSearchController()
     }
 
     func setupCollectionView() {
@@ -73,6 +103,12 @@ private extension VehicleImagesViewController {
         collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         collectionView.delegate = self
+    }
+
+    func setupSearchController() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.text = "333298695"
+        searchController.searchBar.delegate = self
     }
 
 }
@@ -96,11 +132,11 @@ private extension VehicleImagesViewController {
 
     }
 
-    func getCurrentVehicleDetails() {
+    func getCurrentVehicleDetails(for vehicleId: String) {
 
-        // 333298695
         viewModel.isLoading = true
-        let vehicleDetailsPub = viewModel.vehicleDetailsController.getVehicleDetails(id: "333298695")
+        vehicleDetailsCancellable?.cancel()
+        vehicleDetailsCancellable = viewModel.vehicleDetailsController.getVehicleDetails(id: vehicleId)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] (completion) in
                 guard let self = self else { return }
@@ -119,11 +155,7 @@ private extension VehicleImagesViewController {
                 }
             }
 
-        vehicleDetailsPub
-            .store(in: &subscriptions)
-
-//        vehicleDetailsPub.cancel()
-
+        vehicleDetailsCancellable?.store(in: &subscriptions)
     }
 
     func showImages(for uris: [String]) {
