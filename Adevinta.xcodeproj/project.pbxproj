@@ -12,6 +12,8 @@
 		28071992278B08680029B036 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28071991278B08680029B036 /* ImageView.swift */; };
 		28071994278B08810029B036 /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28071993278B08810029B036 /* ImageItem.swift */; };
 		28071997278B0CA70029B036 /* ImageUrlMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28071996278B0CA70029B036 /* ImageUrlMaker.swift */; };
+		28071999278B330E0029B036 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28071998278B330E0029B036 /* UIViewController+Helpers.swift */; };
+		2807199B278B332C0029B036 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2807199A278B332C0029B036 /* LoadingViewController.swift */; };
 		2888D367278A14E600BB141E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D366278A14E600BB141E /* AppDelegate.swift */; };
 		2888D369278A14E600BB141E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D368278A14E600BB141E /* SceneDelegate.swift */; };
 		2888D36E278A14E600BB141E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2888D36C278A14E600BB141E /* Main.storyboard */; };
@@ -56,6 +58,8 @@
 		28071991278B08680029B036 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		28071993278B08810029B036 /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
 		28071996278B0CA70029B036 /* ImageUrlMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUrlMaker.swift; sourceTree = "<group>"; };
+		28071998278B330E0029B036 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
+		2807199A278B332C0029B036 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		2888D363278A14E600BB141E /* Adevinta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Adevinta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2888D366278A14E600BB141E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2888D368278A14E600BB141E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 			children = (
 				2888D3B0278A446600BB141E /* VehicleImageCell.swift */,
 				2888D3B8278A482E00BB141E /* VehicleImageItem.swift */,
+				2807199A278B332C0029B036 /* LoadingViewController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 			children = (
 				2888D3B4278A47BA00BB141E /* UICollectionViewCell+Helpers.swift */,
 				2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */,
+				28071998278B330E0029B036 /* UIViewController+Helpers.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -408,12 +414,14 @@
 				2888D398278A151C00BB141E /* NetworkController.swift in Sources */,
 				2888D3A6278A287A00BB141E /* VehicleImagesViewModel.swift in Sources */,
 				2807198D278AEDAB0029B036 /* ImagePageViewController.swift in Sources */,
+				28071999278B330E0029B036 /* UIViewController+Helpers.swift in Sources */,
 				2888D367278A14E600BB141E /* AppDelegate.swift in Sources */,
 				2888D3A1278A224400BB141E /* VehicleImagesViewController.swift in Sources */,
 				2888D3B5278A47BA00BB141E /* UICollectionViewCell+Helpers.swift in Sources */,
 				2888D39E278A198A00BB141E /* VehicleDetails.swift in Sources */,
 				28071990278AEE3A0029B036 /* ImagePageView.swift in Sources */,
 				2888D3B7278A47DA00BB141E /* UIView+Helpers.swift in Sources */,
+				2807199B278B332C0029B036 /* LoadingViewController.swift in Sources */,
 				28071997278B0CA70029B036 /* ImageUrlMaker.swift in Sources */,
 				2888D369278A14E600BB141E /* SceneDelegate.swift in Sources */,
 				2888D39A278A158300BB141E /* Endpoint.swift in Sources */,

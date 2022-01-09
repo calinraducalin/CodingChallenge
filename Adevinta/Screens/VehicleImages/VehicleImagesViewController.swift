@@ -20,10 +20,12 @@ final class VehicleImagesViewController: UIViewController {
         return collectionView
             .dequeueConfiguredReusableCell(using: self.viewModel.vehicleCellRegistration, for: indexPath, item: item)
     }
+    private var loadingViewController: LoadingViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupSubscriptions()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +37,17 @@ final class VehicleImagesViewController: UIViewController {
         let imageUris = dataSource.snapshot().itemIdentifiers.map { $0.uri }
         let viewModel = ImagePageViewModel(initialUri: selectedUri, imageUris: imageUris)
         let viewController = ImagePageViewController(viewModel: viewModel)
-        present(viewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true)
     }
+
+    func showAlert(title: String?, message: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(.init(title: "OK", style: .default))
+        present(alertController, animated: true)
+    }
+
+
 
 }
 
@@ -69,26 +80,43 @@ private extension VehicleImagesViewController {
 // MARK: - Subscriptions Setup
 private extension VehicleImagesViewController {
 
+    func setupSubscriptions() {
+        viewModel.$isLoading.sink { [weak self] isLoading in
+            guard let self = self else { return }
+            if isLoading {
+                self.showImages(for: [])
+                let loadingViewController = LoadingViewController()
+                self.addChildViewController(loadingViewController)
+                self.loadingViewController = loadingViewController
+            } else {
+                self.loadingViewController?.removeAsChild()
+                self.loadingViewController = nil
+            }
+        }.store(in: &subscriptions)
+
+    }
+
     func getCurrentVehicleDetails() {
 
-        let loadingController = LoadingViewController()
-        loadingController.modalTransitionStyle = .crossDissolve
-        loadingController.modalPresentationStyle = .fullScreen
-
+        // 333298695
+        viewModel.isLoading = true
         let vehicleDetailsPub = viewModel.vehicleDetailsController.getVehicleDetails(id: "333298695")
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { (completion) in
+            .sink(receiveCompletion: { [weak self] (completion) in
+                guard let self = self else { return }
+                self.viewModel.isLoading = false
                 switch completion {
                 case let .failure(error):
-                    print("Couldn't get vehicleDetails: \(error)")
+                    self.showAlert(title: "Ooups", message: error.localizedDescription)
                 case .finished: break
                 }
             }) { [weak self] vehicleDetails in
                 guard let self = self else { return }
                 let uris = vehicleDetails.images?.compactMap({ $0.uri }) ?? []
-                let snapshot = self.viewModel.makeSnapshot(from: uris)
-                self.dataSource.apply(snapshot)
-//                self.dataSource.snapshot().itemIdentifiers
+                self.showImages(for: uris)
+                if uris.isEmpty {
+                    self.showAlert(title: "Ooups", message: "No images found")
+                }
             }
 
         vehicleDetailsPub
@@ -98,15 +126,9 @@ private extension VehicleImagesViewController {
 
     }
 
-}
-
-
-final class LoadingViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .red
-
+    func showImages(for uris: [String]) {
+        let snapshot = self.viewModel.makeSnapshot(from: uris)
+        dataSource.apply(snapshot)
     }
-    
+
 }
