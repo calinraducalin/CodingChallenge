@@ -10,12 +10,21 @@ import Combine
 
 final class VehicleImagesViewModel {
 
-    @Published var searchText: String = "333298695"
     @Published private (set) var isLoading: Bool = false
-    @Published private (set) var snapshot = NSDiffableDataSourceSnapshot<Int, VehicleImageItem>()
-    private var vehicleDetailsCancellable: AnyCancellable?
-    private var subscriptions = Set<AnyCancellable>()
+    @Published private var searchText: String = "333298695"
+    let searchController = UISearchController()
+    let loadingActivityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    private let vehicleCellRegistration = UICollectionView.CellRegistration<VehicleImageCell, VehicleImageItem> { (cell, _, item) in
+        cell.update(with: item)
+    }
     private let presenter: Presenting
+    private var subscriptions = Set<AnyCancellable>()
+    private var vehicleDetailsCancellable: AnyCancellable?
+    private var dataSource: UICollectionViewDiffableDataSource<Int, VehicleImageItem>?
 
     let vehicleDetailsController: VehicleDetailsControllerProtocol
 
@@ -26,6 +35,16 @@ final class VehicleImagesViewModel {
         self.presenter = presenter
         self.vehicleDetailsController = vehicleDetailsController
         setupSubscriptions()
+    }
+
+    func setupDataSource(for collectionView: UICollectionView) {
+        self.dataSource = UICollectionViewDiffableDataSource<Int, VehicleImageItem>(
+            collectionView: collectionView
+        ) { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let self = self else { return nil }
+            return collectionView
+                .dequeueConfiguredReusableCell(using: self.vehicleCellRegistration, for: indexPath, item: item)
+        }
     }
 
     func makeLayout() -> UICollectionViewLayout {
@@ -49,15 +68,31 @@ final class VehicleImagesViewModel {
         return layout
     }
 
-    func showPageImageViewController(selectedUri: String) {
-        let imageUris = snapshot.itemIdentifiers.map { $0.uri }
-        let pageImageScreen = PageImageScreen(selectedUri: selectedUri, imageUris: imageUris)
-        presenter.show(pageImageScreen, presentation: .present, animated: true)
+    func makeInfoAction() -> UIAction {
+        UIAction { [weak self] _ in
+            self?.showAlert(title: "Project Info", message: "Project Message")
+        }
     }
 
-    func showAlert(title: String?, message: String?) {
-        let alertScreen = AlertScreen(title: title, message: message)
-        presenter.show(alertScreen, presentation: .present, animated: true)
+    func didSelectItem(at indexPath: IndexPath) {
+        guard let selectedUri = dataSource?.itemIdentifier(for: indexPath)?.uri else { return }
+        showPageImageViewController(selectedUri: selectedUri)
+    }
+
+    func searchBarSearchButtonClicked() {
+        guard let newSearchText = searchController.searchBar.text else { return }
+        searchText = newSearchText
+        searchController.isActive = false
+        DispatchQueue.main.async {
+            self.searchController.searchBar.text = newSearchText
+        }
+    }
+
+    func searchBarCancelButtonClicked() {
+        guard let newSearchText = searchController.searchBar.text else { return }
+        DispatchQueue.main.async {
+            self.searchController.searchBar.text = newSearchText
+        }
     }
     
 }
@@ -65,15 +100,25 @@ final class VehicleImagesViewModel {
 private extension VehicleImagesViewModel {
 
     func setupSubscriptions() {
-        vehicleDetailsCancellable?.cancel()
+
         $searchText.sink { [weak self] searchText in
+            self?.searchController.searchBar.text = searchText
             self?.getVehicleDetails(vehicleId: searchText)
+        }.store(in: &subscriptions)
+
+        $isLoading.sink { [weak self] isLoading in
+            if isLoading {
+                self?.loadingActivityIndicator.startAnimating()
+            } else {
+                self?.loadingActivityIndicator.stopAnimating()
+            }
         }.store(in: &subscriptions)
     }
 
     func getVehicleDetails(vehicleId: String) {
         isLoading = true
-        snapshot = makeSnapshot(from: [])
+        let snapshot = makeSnapshot(from: [])
+        dataSource?.apply(snapshot)
         vehicleDetailsCancellable?.cancel()
         vehicleDetailsCancellable = vehicleDetailsController.getVehicleDetails(id: vehicleId)
             .receive(on: RunLoop.main)
@@ -88,7 +133,8 @@ private extension VehicleImagesViewModel {
             }) { [weak self] vehicleDetails in
                 guard let self = self else { return }
                 let uris = vehicleDetails.images?.compactMap({ $0.uri }) ?? []
-                self.snapshot = self.makeSnapshot(from: uris)
+                let snapshot = self.makeSnapshot(from: uris)
+                self.dataSource?.apply(snapshot)
                 if uris.isEmpty {
                     self.showAlert(title: "Ooups", message: "No images found for vehicle id\n \(vehicleId)")
                 }
@@ -103,6 +149,17 @@ private extension VehicleImagesViewModel {
         snapshot.appendItems(items, toSection: .zero)
 
         return snapshot
+    }
+
+    func showPageImageViewController(selectedUri: String) {
+        let imageUris = dataSource?.snapshot().itemIdentifiers.map { $0.uri } ?? []
+        let pageImageScreen = PageImageScreen(selectedUri: selectedUri, imageUris: imageUris)
+        presenter.show(pageImageScreen, presentation: .present, animated: true)
+    }
+
+    func showAlert(title: String?, message: String?) {
+        let alertScreen = AlertScreen(title: title, message: message)
+        presenter.show(alertScreen, presentation: .present, animated: true)
     }
 
 }
