@@ -76,12 +76,12 @@ final class VehicleImagesViewModel {
 
     func makeInfoAction() -> UIAction {
         let implementationMessage =
-        "👨‍💻 I developed this project by trying to use many the latest native frameworks and APIs.\n" +
-        "🔴 The networking layer was developed using Combine;\n" +
-        "🔴 Thumbnails screen was implemented by using a Collection View with Compositional Layout and Diffable Data Sources from UIKit;\n" +
-        "🔴 The Large Photo Collection screen was done in SwiftUI;\n" +
-        "🔴 There are unit tests for VehicleImagesViewModel where is defined most of the logic of the app;\n" +
-        "🔴 Only 1 external dependency was needed for image caching - it was added using Swift Package Manager.\n" +
+        "👨‍💻 I developed this project by trying to use many the latest native frameworks and APIs offerred by .\n" +
+        "🟢 The networking layer was developed using Combine;\n" +
+        "🟢 Thumbnails screen was implemented by using a Collection View with Compositional Layout and Diffable Data Sources from UIKit;\n" +
+        "🟢 The Large Photo Collection screen was done in SwiftUI;\n" +
+        "🟢 There are unit tests for VehicleImagesViewModel where is defined most of the logic of the app;\n" +
+        "🟢 Only 1 external dependency was needed for image caching - it was added using Swift Package Manager.\n" +
         "🤞 I hope you like my approach."
 
         return UIAction { [weak self] _ in
