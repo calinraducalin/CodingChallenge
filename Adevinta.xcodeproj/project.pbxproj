@@ -22,7 +22,7 @@
 		2888D36E278A14E600BB141E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2888D36C278A14E600BB141E /* Main.storyboard */; };
 		2888D370278A14E700BB141E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2888D36F278A14E700BB141E /* Assets.xcassets */; };
 		2888D373278A14E700BB141E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2888D371278A14E700BB141E /* LaunchScreen.storyboard */; };
-		2888D37E278A14E800BB141E /* AdevintaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D37D278A14E800BB141E /* AdevintaTests.swift */; };
+		2888D37E278A14E800BB141E /* VehicleImagesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D37D278A14E800BB141E /* VehicleImagesViewModelTests.swift */; };
 		2888D388278A14E800BB141E /* AdevintaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D387278A14E800BB141E /* AdevintaUITests.swift */; };
 		2888D38A278A14E800BB141E /* AdevintaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D389278A14E800BB141E /* AdevintaUITestsLaunchTests.swift */; };
 		2888D398278A151C00BB141E /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D397278A151C00BB141E /* NetworkController.swift */; };
@@ -36,6 +36,10 @@
 		2888D3B5278A47BA00BB141E /* UICollectionViewCell+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B4278A47BA00BB141E /* UICollectionViewCell+Helpers.swift */; };
 		2888D3B7278A47DA00BB141E /* UIView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */; };
 		2888D3B9278A482E00BB141E /* VehicleImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888D3B8278A482E00BB141E /* VehicleImageItem.swift */; };
+		28E8AFC3278C2E39008221BC /* PresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E8AFC2278C2E39008221BC /* PresenterMock.swift */; };
+		28E8AFC5278C2E71008221BC /* ActivityIndicatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E8AFC4278C2E71008221BC /* ActivityIndicatorMock.swift */; };
+		28E8AFC7278C2E8D008221BC /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E8AFC6278C2E8D008221BC /* MockError.swift */; };
+		28E8AFC9278C2EA5008221BC /* VehicleDetailsControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E8AFC8278C2EA5008221BC /* VehicleDetailsControllerMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +78,7 @@
 		2888D372278A14E700BB141E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2888D374278A14E800BB141E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2888D379278A14E800BB141E /* AdevintaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdevintaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2888D37D278A14E800BB141E /* AdevintaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdevintaTests.swift; sourceTree = "<group>"; };
+		2888D37D278A14E800BB141E /* VehicleImagesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleImagesViewModelTests.swift; sourceTree = "<group>"; };
 		2888D383278A14E800BB141E /* AdevintaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdevintaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2888D387278A14E800BB141E /* AdevintaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdevintaUITests.swift; sourceTree = "<group>"; };
 		2888D389278A14E800BB141E /* AdevintaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdevintaUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -88,6 +92,10 @@
 		2888D3B4278A47BA00BB141E /* UICollectionViewCell+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Helpers.swift"; sourceTree = "<group>"; };
 		2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Helpers.swift"; sourceTree = "<group>"; };
 		2888D3B8278A482E00BB141E /* VehicleImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleImageItem.swift; sourceTree = "<group>"; };
+		28E8AFC2278C2E39008221BC /* PresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterMock.swift; sourceTree = "<group>"; };
+		28E8AFC4278C2E71008221BC /* ActivityIndicatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorMock.swift; sourceTree = "<group>"; };
+		28E8AFC6278C2E8D008221BC /* MockError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
+		28E8AFC8278C2EA5008221BC /* VehicleDetailsControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsControllerMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +212,8 @@
 		2888D37C278A14E800BB141E /* AdevintaTests */ = {
 			isa = PBXGroup;
 			children = (
-				2888D37D278A14E800BB141E /* AdevintaTests.swift */,
+				2888D37D278A14E800BB141E /* VehicleImagesViewModelTests.swift */,
+				28E8AFC1278C2E28008221BC /* Utils */,
 			);
 			path = AdevintaTests;
 			sourceTree = "<group>";
@@ -296,6 +305,17 @@
 				2888D3B6278A47DA00BB141E /* UIView+Helpers.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		28E8AFC1278C2E28008221BC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				28E8AFC2278C2E39008221BC /* PresenterMock.swift */,
+				28E8AFC4278C2E71008221BC /* ActivityIndicatorMock.swift */,
+				28E8AFC6278C2E8D008221BC /* MockError.swift */,
+				28E8AFC8278C2EA5008221BC /* VehicleDetailsControllerMock.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,7 +484,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2888D37E278A14E800BB141E /* AdevintaTests.swift in Sources */,
+				28E8AFC3278C2E39008221BC /* PresenterMock.swift in Sources */,
+				28E8AFC5278C2E71008221BC /* ActivityIndicatorMock.swift in Sources */,
+				28E8AFC7278C2E8D008221BC /* MockError.swift in Sources */,
+				2888D37E278A14E800BB141E /* VehicleImagesViewModelTests.swift in Sources */,
+				28E8AFC9278C2EA5008221BC /* VehicleDetailsControllerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

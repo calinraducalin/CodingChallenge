@@ -12,10 +12,11 @@ final class VehicleImagesViewModel {
 
     let searchController: UISearchController
     let activityIndicator: UIActivityIndicatorView
+    private(set) var vehicleDetailsPublisher: AnyPublisher<VehicleDetails, Error>?
+    private(set) var subscriptions = Set<AnyCancellable>()
+    private var vehicleDetailsCancellable: AnyCancellable?
     private let presenter: Presenting
     private let vehicleDetailsController: VehicleDetailsControllerProtocol
-    private var subscriptions = Set<AnyCancellable>()
-    private var vehicleDetailsCancellable: AnyCancellable?
     private var dataSource: UICollectionViewDiffableDataSource<Int, VehicleImageItem>?
     private var isLoading: Bool = false {
         didSet {
@@ -40,8 +41,6 @@ final class VehicleImagesViewModel {
         self.vehicleDetailsController = vehicleDetailsController
         self.searchController = searchController
         self.activityIndicator = activityIndicator
-
-        activityIndicator.hidesWhenStopped = true
     }
 
     func setupDataSource(for collectionView: UICollectionView) {
@@ -76,8 +75,17 @@ final class VehicleImagesViewModel {
     }
 
     func makeInfoAction() -> UIAction {
-        UIAction { [weak self] _ in
-            self?.showAlert(title: "Project Info", message: "Project Message")
+        let implementationMessage =
+        "👨‍💻 I developed this project by trying to use many the latest native frameworks and APIs.\n" +
+        "🔴 The networking layer was developed using Combine;\n" +
+        "🔴 Thumbnails screen was implemented by using a Collection View with Compositional Layout and Diffable Data Sources from UIKit;\n" +
+        "🔴 The Large Photo Collection screen was done in SwiftUI;\n" +
+        "🔴 There are unit tests for VehicleImagesViewModel where is defined most of the logic of the app;\n" +
+        "🔴 Only 1 external dependency was needed for image caching - it was added using Swift Package Manager.\n" +
+        "🤞 I hope you like my approach."
+
+        return UIAction { [weak self] _ in
+            self?.showAlert(title: "Implementation Notes", message: implementationMessage)
         }
     }
 
@@ -116,7 +124,8 @@ private extension VehicleImagesViewModel {
         isLoading = true
         applySnapshot(for: [])
         vehicleDetailsCancellable?.cancel()
-        vehicleDetailsCancellable = vehicleDetailsController.getVehicleDetails(id: vehicleId)
+        vehicleDetailsPublisher = vehicleDetailsController.getVehicleDetails(id: vehicleId)
+        vehicleDetailsCancellable = vehicleDetailsPublisher?
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] (completion) in
                 guard let self = self else { return }
